@@ -5,11 +5,10 @@ public class Point {
     public Point(double x, double y) {
 
     if (x<-1 || x>1) {
-        this.x=0;
+        this.x=-1;
     }
     if (y<-1 || y>1) {
-        this.y=0;
-
+        this.y=-1;
     }
     this.x=x;
     this.y=y;

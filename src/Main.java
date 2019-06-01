@@ -8,7 +8,6 @@ public class Main {
 
     public static void generateBits(double prob) {
         bits = new int[N];
-
         if (prob < 0 || prob > 1) {
             System.out.println("Probability has to be between 0 and 1!");
             System.exit(1);
@@ -23,40 +22,30 @@ public class Main {
             }
             bits[i] = bit;
         }
-
     }
 
     public static void makePoints() {
         points = new Point[N / 2];
-
         for (int i = 0; i < N; i = i + 2) {
             int x = bits[i];
             int y = bits[i+1];
             if (x == 0) x=-1;
             if (y == 0) y=-1;
             points[i / 2] = new Point(x, y);
-
         }
-
-
     }
 
 
-    public static void addNoise(double sigma, double mean) {
+    public static void addNoise(double sigma) {
         pointsAltered = new Point[N/2];
         for (int i=0; i<N/2; i++) {
             pointsAltered[i] = new Point(points[i].x, points[i].y);
             java.util.Random r = new java.util.Random();
-
             double noise = r.nextGaussian() * Math.sqrt(sigma);
             pointsAltered[i].x+=noise;
             noise = r.nextGaussian() * Math.sqrt(sigma);
             pointsAltered[i].y +=noise;
-
-
         }
-
-
     }
 
     public static void generateAlteredBits() {
@@ -111,16 +100,11 @@ public class Main {
         //args[0] is the probability of 0
         generateBits(Double.parseDouble(args[0]));
         makePoints();
-        //args[0] is sigma squared
-        addNoise(10000, Double.parseDouble(args[0]));
+        //args[1] is sigma squared
+        addNoise(Double.parseDouble(args[1]));
         generateAlteredBits();
         double ret = calculateError();
-        
         System.out.println();
         System.out.println(ret);
-
-
-
     }
-
 }
