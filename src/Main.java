@@ -1,6 +1,6 @@
 
 public class Main {
-    public static final int N = 1000000; //number of bits HAS TO BE AN EVEN NUMBER
+    public static final int N = 100000; //number of bits HAS TO BE AN EVEN NUMBER
     public static int[] bits;
     public static int[] bitsAltered;
     public static Point[] points;
@@ -97,14 +97,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //args[0] is the probability of 0
-        generateBits(Double.parseDouble(args[0]));
-        makePoints();
-        //args[1] is sigma squared
-        addNoise(Double.parseDouble(args[1]));
-        generateAlteredBits();
-        double ret = calculateError();
+        int M=100;
+        double ret=0;
+        for (int i=0; i<100; i++) {
+            //args[0] is the probability of 0
+            generateBits(Double.parseDouble(args[0]));
+            makePoints();
+            //args[1] is sigma squared
+            addNoise(Double.parseDouble(args[0]));
+            generateAlteredBits();
+            double retu = calculateError();
+            ret+=retu;
+        }
+        ret/=M;
         System.out.println();
         System.out.println(ret);
+
     }
 }
